@@ -49,7 +49,7 @@ class FCPListItem {
       }
     }
     if image != nil {
-        if image!.starts(with: "http"){
+        if image!.starts(with: "http") {
             DispatchQueue.global(qos: .background).async {
               let url = URL(string: self.image!)
               let stationImage = try? UIImage(withURL: url!)
@@ -95,7 +95,7 @@ class FCPListItem {
       self.detailText = detailText
     }
     if image != nil {
-      if (image!.starts(with: "http")) {
+      if image!.starts(with: "http") {
           DispatchQueue.global(qos: .background).async {
             let url = URL(string: self.image!)
             let stationImage = try? UIImage(withURL: url!)
