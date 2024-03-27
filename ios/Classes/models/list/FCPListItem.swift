@@ -50,20 +50,14 @@ class FCPListItem {
     }
     if image != nil {
         if image!.starts(with: "http"){
-            
-           
-            
-            
             DispatchQueue.global(qos: .background).async {
-                let url = URL(string: self.image!)
-                let stationImage = try? UIImage(withURL: url!)
-    //
-                    DispatchQueue.main.async {
-                        listItem.setImage(stationImage)
-
-                    }
-                  }
-        }else{
+              let url = URL(string: self.image!)
+              let stationImage = try? UIImage(withURL: url!)
+              DispatchQueue.main.async {
+                  listItem.setImage(stationImage)
+              }
+            }
+        } else {
             listItem.setImage(UIImage().fromFlutterAsset(name: image!))
         }
     }
@@ -101,25 +95,19 @@ class FCPListItem {
       self.detailText = detailText
     }
     if image != nil {
-        // Added by bensalcie
-        if(image!.starts(with: "http")){
-            
-            
-            DispatchQueue.global(qos: .background).async {
-                let url = URL(string: self.image!)
-                let stationImage = try? UIImage(withURL: url!)
-    //
-                    DispatchQueue.main.async {
-                                    self._super?.setImage(stationImage)
-                                    self.image = image
-
-                    }
-                  }
-            
-        }else{
-            self._super?.setImage(UIImage().fromFlutterAsset(name: image!))
-            self.image = image
-        }
+      if (image!.starts(with: "http")) {
+          DispatchQueue.global(qos: .background).async {
+            let url = URL(string: self.image!)
+            let stationImage = try? UIImage(withURL: url!)
+            DispatchQueue.main.async {
+              self._super?.setImage(stationImage)
+              self.image = image
+            }
+          }
+      } else {
+          self._super?.setImage(UIImage().fromFlutterAsset(name: image!))
+          self.image = image
+      }
     }
     if playbackProgress != nil {
       self._super?.playbackProgress = playbackProgress!

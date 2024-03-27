@@ -19,15 +19,14 @@ extension UIImage {
     let image: UIImage? = UIImage(imageLiteralResourceName: key!)
     return image ?? UIImage(systemName: "questionmark")!
   }
-    
-    // Added by bensalcie
-    func fromUrl(_ base64: String) -> UIImage? {
-        if let url = URL(string: base64),
-           let data = try? Data(contentsOf: url) {
-            return UIImage(data: data)
-        }
-        return UIImage(systemName: "questionmark")!
+
+  func fromUrl(_ base64: String) -> UIImage? {
+    if let url = URL(string: base64),
+      let data = try? Data(contentsOf: url) {
+      return UIImage(data: data)
     }
+    return UIImage(systemName: "questionmark")!
+  }
 
   func resizeImageTo(size: CGSize) -> UIImage? {
       UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
