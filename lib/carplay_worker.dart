@@ -288,7 +288,8 @@ class FlutterCarplay {
       throw TypeError();
     }
   }
-   /// Navigate to the shared instance of the NowPlaying Template
+  
+  /// Navigate to the shared instance of the NowPlaying Template
   ///
   /// - If animated is true, CarPlay animates the transition between templates.
   static Future<bool> showSharedNowPlaying({
