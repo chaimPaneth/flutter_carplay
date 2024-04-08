@@ -48,18 +48,18 @@ class FCPListItem {
         complete()
       }
     }
-    if image != nil {
-        if image!.starts(with: "http") {
-            DispatchQueue.global(qos: .background).async {
-              let url = URL(string: self.image!)
-              let stationImage = try? UIImage(withURL: url!)
-              DispatchQueue.main.async {
-                  listItem.setImage(stationImage)
-              }
+    if let image = image {
+      if image.starts(with: "http") {
+        DispatchQueue.global(qos: .background).async {
+          if let url = URL(string: image), let stationImage = try? UIImage(withURL: url) {
+            DispatchQueue.main.async {
+              listItem.setImage(stationImage)
             }
-        } else {
-            listItem.setImage(UIImage().fromFlutterAsset(name: image!))
+          }
         }
+      } else {
+          listItem.setImage(UIImage().fromFlutterAsset(name: image))
+      }
     }
     if playbackProgress != nil {
       listItem.playbackProgress = playbackProgress!
