@@ -5,14 +5,23 @@
 //  Created by Oğuzhan Atalay on 21.08.2021.
 //
 
-
-
 extension UIImage {
   convenience init?(withURL url: URL) throws {
     let imageData = try Data(contentsOf: url)
     self.init(data: imageData)
   }
   
+    
+  @available(iOS 14.0, *)
+  func fromCorrectSource(name: String) -> UIImage {
+    if (name.starts(with: "http")) {
+      return fromUrl(url: name)
+    } else if (name.starts(with: "file://")) {
+      return fromFile(path: name)
+    }
+    return fromFlutterAsset(name: name)
+  }
+    
   @available(iOS 14.0, *)
   func fromFlutterAsset(name: String) -> UIImage {
     let key: String? = SwiftFlutterCarplayPlugin.registrar?.lookupKey(forAsset: name)
@@ -20,12 +29,21 @@ extension UIImage {
     return image ?? UIImage(systemName: "questionmark")!
   }
 
-  func fromUrl(_ base64: String) -> UIImage? {
-    if let url = URL(string: base64),
-      let data = try? Data(contentsOf: url) {
-      return UIImage(data: data)
-    }
-    return UIImage(systemName: "questionmark")!
+  @available(iOS 14.0, *)
+  func fromFile(path: String) -> UIImage {
+    let cleanPath = path.replacingOccurrences(of: "file://", with: "")
+    let image: UIImage? = UIImage(contentsOfFile: cleanPath)
+    return image ?? UIImage(systemName: "questionmark")!
+  }
+
+  @available(iOS 14.0, *)
+  func fromUrl(url: String) -> UIImage {
+      let url = URL(string: url)
+      let data = try? Data(contentsOf: url!)
+      guard let data = data else {
+          return UIImage(systemName: "questionmark")!
+      }
+      return UIImage(data: data)!
   }
 
   func resizeImageTo(size: CGSize) -> UIImage? {

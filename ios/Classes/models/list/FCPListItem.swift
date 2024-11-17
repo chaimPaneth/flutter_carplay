@@ -5,8 +5,6 @@
 //  Created by Oğuzhan Atalay on 21.08.2021.
 //
 
-// Edited by bensalcie
-
 import CarPlay
 
 @available(iOS 14.0, *)
@@ -48,17 +46,16 @@ class FCPListItem {
         complete()
       }
     }
-    if let image = image {
-      if image.starts(with: "http") {
-        DispatchQueue.global(qos: .background).async {
-          if let url = URL(string: image), let stationImage = try? UIImage(withURL: url) {
-            DispatchQueue.main.async {
-              listItem.setImage(stationImage)
-            }
-          }
+    if image != nil {
+      UIGraphicsBeginImageContext(CGSize.init(width: 100, height: 100))
+      let emptyImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      listItem.setImage(emptyImage)
+      DispatchQueue.global(qos: .background).async {
+        let uiImage = UIImage().fromCorrectSource(name: self.image!)
+        DispatchQueue.main.async {
+            listItem.setImage(uiImage)
         }
-      } else {
-          listItem.setImage(UIImage().fromFlutterAsset(name: image))
       }
     }
     if playbackProgress != nil {
@@ -95,19 +92,14 @@ class FCPListItem {
       self.detailText = detailText
     }
     if image != nil {
-      if image!.starts(with: "http") {
-          DispatchQueue.global(qos: .background).async {
-            let url = URL(string: self.image!)
-            let stationImage = try? UIImage(withURL: url!)
-            DispatchQueue.main.async {
-              self._super?.setImage(stationImage)
-              self.image = image
-            }
-          }
-      } else {
-          self._super?.setImage(UIImage().fromFlutterAsset(name: image!))
-          self.image = image
+      DispatchQueue.global(qos: .background).async {
+        let uiImage = UIImage().fromCorrectSource(name: image!)
+        DispatchQueue.main.async {
+          self._super?.setImage(uiImage)
+        }
       }
+      
+      self.image = image
     }
     if playbackProgress != nil {
       self._super?.playbackProgress = playbackProgress!
@@ -131,9 +123,6 @@ class FCPListItem {
     }
   }
   
-    
-    
-    
   private func setPlayingIndicatorLocation(fromString: String?) {
     if fromString == "leading" {
       self.playingIndicatorLocation = CPListItemPlayingIndicatorLocation.leading

@@ -17,4 +17,5 @@ enum FCPChannelTypes {
   onBarButtonPressed,
   onTextButtonPressed,
   popToRootTemplate,
+  updateTabBarTemplates,
 }

@@ -29,6 +29,12 @@ class CPTabBarTemplate {
     required this.templates,
   });
 
+  void updateTemplates({required List<CPListTemplate> newTemplates}) {
+    templates
+      ..clear()
+      ..addAll(newTemplates);
+  }
+
   Map<String, dynamic> toJson() => {
         "_elementId": _elementId,
         "title": title,
