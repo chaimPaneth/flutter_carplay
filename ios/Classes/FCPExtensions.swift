@@ -38,13 +38,16 @@ extension UIImage {
 
   @available(iOS 14.0, *)
   func fromUrl(url: String) -> UIImage {
-      let url = URL(string: url)
-      let data = try? Data(contentsOf: url!)
-      guard let data = data else {
-          return UIImage(systemName: "questionmark")!
-      }
-      return UIImage(data: data)!
+    guard let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+        let url = URL(string: encodedUrl) else {
+      return UIImage(systemName: "questionmark")!
+    }
+    guard let data = try? Data(contentsOf: url) else {
+      return UIImage(systemName: "questionmark")!
+    }
+    return UIImage(data: data) ?? UIImage(systemName: "questionmark")!
   }
+
 
   func resizeImageTo(size: CGSize) -> UIImage? {
       UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
