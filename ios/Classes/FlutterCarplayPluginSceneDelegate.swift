@@ -16,7 +16,7 @@ class FlutterCarPlaySceneDelegate: UIResponder, CPTemplateApplicationSceneDelega
     let animated = SwiftFlutterCarplayPlugin.animated
     
     if rootTemplate != nil {
-        self.interfaceController?.setRootTemplate(rootTemplate!, animated: animated)
+        self.interfaceController?.setRootTemplate(rootTemplate!, animated: animated, completion: nil)
     }
   }
   
@@ -31,19 +31,19 @@ class FlutterCarPlaySceneDelegate: UIResponder, CPTemplateApplicationSceneDelega
   }
   
   static public func pop(animated: Bool) {
-    self.interfaceController?.popTemplate(animated: animated)
+    self.interfaceController?.popTemplate(animated: animated, completion: nil)
   }
   
   static public func popToRootTemplate(animated: Bool) {
-    self.interfaceController?.popToRootTemplate(animated: animated)
+    self.interfaceController?.popToRootTemplate(animated: animated, completion: nil)
   }
   
   static public func push(template: CPTemplate, animated: Bool) {
-    self.interfaceController?.pushTemplate(template, animated: animated)
+    self.interfaceController?.pushTemplate(template, animated: animated, completion: nil)
   }
   
   static public func closePresent(animated: Bool) {
-    self.interfaceController?.dismissTemplate(animated: animated)
+    self.interfaceController?.dismissTemplate(animated: animated, completion: nil)
   }
   
   static public func presentTemplate(template: CPTemplate, animated: Bool,
