@@ -1,10 +1,8 @@
+import 'package:flutter_carplay/models/alert/alert_action.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../flutter_carplay.dart';
-import '../../helpers/carplay_helper.dart';
-
 /// A template object that displays a modal action sheet.
-class CPActionSheetTemplate extends CPPresentTemplate {
+class CPActionSheetTemplate {
   /// Unique id of the object.
   final String _elementId = const Uuid().v4();
 
@@ -17,37 +15,21 @@ class CPActionSheetTemplate extends CPPresentTemplate {
   /// The list of actions as [CPAlertAction] available on the action sheet.
   final List<CPAlertAction> actions;
 
-  /// Creates [CPActionSheetTemplate]
+  /// Creates [CPActionSheetTemplate] with a title, a message and a list of actions available on the action sheet.
   CPActionSheetTemplate({
-    required this.actions,
-    super.isDismissible,
-    super.routeName,
-    this.message,
     this.title,
-    super.onPresent,
-    super.onPop,
+    this.message,
+    required this.actions,
   });
 
-  @override
   Map<String, dynamic> toJson() => {
-        '_elementId': _elementId,
-        'title': title,
-        'message': message,
-        'onPresent': onPresent != null,
-        'onPop': onPop != null,
-        'actions': actions.map((e) => e.toJson()).toList(),
+        "_elementId": _elementId,
+        "title": title,
+        "message": message,
+        "actions": actions.map((e) => e.toJson()).toList(),
       };
 
-  @override
   String get uniqueId {
     return _elementId;
-  }
-
-  @override
-  bool hasSameValues(CPTemplate other) {
-    return other is CPActionSheetTemplate &&
-        title == other.title &&
-        message == other.message &&
-        FlutterCarplayHelper().compareLists(actions, other.actions, (a, b) => a.hasSameValues(b));
   }
 }

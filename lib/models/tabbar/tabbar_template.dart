@@ -1,11 +1,9 @@
+import 'package:flutter_carplay/models/list/list_template.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../flutter_carplay.dart';
-import '../../helpers/carplay_helper.dart';
 
 /// A template object that contains a collection of [CPListTemplate] templates,
 /// each of which occupies one tab in the tab bar.
-class CPTabBarTemplate extends CPTemplate {
+class CPTabBarTemplate {
   /// Unique id of the object.
   final String _elementId = const Uuid().v4();
 
@@ -26,26 +24,24 @@ class CPTabBarTemplate extends CPTemplate {
   ///
   /// [!] You can’t add a tab bar template to an existing navigation hierarchy,
   /// or present one modally.
-  CPTabBarTemplate({required this.templates, this.title});
+  CPTabBarTemplate({
+    this.title,
+    required this.templates,
+  });
 
-  @override
-  Map<String, dynamic> toJson() => {
-        '_elementId': _elementId,
-        'title': title,
-        'templates': templates.map((e) => e.toJson()).toList(),
-      };
-
-  @override
-  String get uniqueId {
-    return _elementId;
+  void updateTemplates({required List<CPListTemplate> newTemplates}) {
+    templates
+      ..clear()
+      ..addAll(newTemplates);
   }
 
-  @override
-  bool hasSameValues(CPTemplate other) {
-    if (runtimeType != other.runtimeType) return false;
-    other as CPTabBarTemplate;
+  Map<String, dynamic> toJson() => {
+        "_elementId": _elementId,
+        "title": title,
+        "templates": templates.map((e) => e.toJson()).toList(),
+      };
 
-    return title == other.title &&
-        FlutterCarplayHelper().compareLists(templates, other.templates, (a, b) => a.hasSameValues(b));
+  String get uniqueId {
+    return _elementId;
   }
 }

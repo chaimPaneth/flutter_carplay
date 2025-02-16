@@ -221,7 +221,7 @@ FlutterCarplay.setRootTemplate(
               CPListItem(
                 text: "Item 1",
                 detailText: "Detail Text",
-                onPressed: (complete, self) {
+                onPress: (complete, self) {
                   self.setDetailText("You can change the detail text.. 🚀");
                   Future.delayed(const Duration(seconds: 1), () {
                     self.setDetailText("Customizable Detail Text");
@@ -368,7 +368,7 @@ final CPTabBarTemplate tabBarTemplate = CPTabBarTemplate(
             CPListItem(
               text: "Item 1",
               detailText: "Detail Text",
-              onPressed: (complete, self) {
+              onPress: (complete, self) {
                 // Returns the self class so that the item
                 // can be updated within self while loading
                 self.setDetailText("You can change the detail text.. 🚀");
@@ -384,7 +384,7 @@ final CPTabBarTemplate tabBarTemplate = CPTabBarTemplate(
               playbackProgress: 0,
               // asset name defined in pubspec.yaml
               image: 'images/logo_flutter_1080px_clr.png',
-              onPressed: (complete, self) {
+              onPress: (complete, self) {
                 complete();
               },
             ),
@@ -428,7 +428,7 @@ final CPGridTemplate gridTemplate = CPGridTemplate(
       CPGridButton(
         titleVariants: ["Item $i"],
         image: 'images/logo_flutter_1080px_clr.png',
-        onPressed: () {
+        onPress: () {
           print("Grid Button $i pressed");
         },
       ),
@@ -455,7 +455,7 @@ final CPAlertTemplate alertTemplate = CPAlertTemplate(
     CPAlertAction(
       title: "Okay",
       style: CPAlertActionStyles.normal,
-      onPressed: () {
+      onPress: () {
         print("Okay pressed");
         FlutterCarplay.popModal(animated: true);
       },
@@ -463,7 +463,7 @@ final CPAlertTemplate alertTemplate = CPAlertTemplate(
     CPAlertAction(
       title: "Cancel",
       style: CPAlertActionStyles.cancel,
-      onPressed: () {
+      onPress: () {
         print("Cancel pressed");
         FlutterCarplay.popModal(animated: true);
       },
@@ -471,7 +471,7 @@ final CPAlertTemplate alertTemplate = CPAlertTemplate(
     CPAlertAction(
       title: "Remove",
       style: CPAlertActionStyles.destructive,
-      onPressed: () {
+      onPress: () {
         print("Remove pressed");
         FlutterCarplay.popModal(animated: true);
       },
@@ -498,7 +498,7 @@ final CPActionSheetTemplate actionSheetTemplate = CPActionSheetTemplate(
     CPAlertAction(
       title: "Cancel",
       style: CPAlertActionStyles.cancel,
-      onPressed: () {
+      onPress: () {
         print("Cancel pressed in action sheet");
         FlutterCarplay.popModal(animated: true);
       },
@@ -506,7 +506,7 @@ final CPActionSheetTemplate actionSheetTemplate = CPActionSheetTemplate(
     CPAlertAction(
       title: "Dismiss",
       style: CPAlertActionStyles.destructive,
-      onPressed: () {
+      onPress: () {
         print("Dismiss pressed in action sheet");
         FlutterCarplay.popModal(animated: true);
       },
@@ -514,7 +514,7 @@ final CPActionSheetTemplate actionSheetTemplate = CPActionSheetTemplate(
     CPAlertAction(
       title: "Ok",
       style: CPAlertActionStyles.normal,
-      onPressed: () {
+      onPress: () {
         print("Ok pressed in action sheet");
         FlutterCarplay.popModal(animated: true);
       },
@@ -541,7 +541,7 @@ final CPListTemplate listTemplate = CPListTemplate(
         CPListItem(
           text: "Item 1",
           detailText: "Detail Text",
-          onPressed: (complete, self) {
+          onPress: (complete, self) {
             // Returns the self class so that the item
             // can be updated within self while loading
             self.setDetailText("You can change the detail text.. 🚀");
@@ -557,7 +557,7 @@ final CPListTemplate listTemplate = CPListTemplate(
           playbackProgress: 0,
           // asset name defined in pubspec.yaml
           image: 'images/logo_flutter_1080px_clr.png',
-          onPressed: (complete, self) {
+          onPress: (complete, self) {
             complete();
           },
         ),
@@ -596,13 +596,13 @@ final CPInformationTemplate informationTemplate = CPInformationTemplate(
   actions: [
     CPTextButton(
       title: "Button Title 1",
-      onPressed: () {
+      onPress: () {
         print("Button 1");
       }
     ),
     CPTextButton(
       title: "Button Title 2",
-      onPressed: () {
+      onPress: () {
         print("Button 2");
        }
     ),
@@ -641,13 +641,13 @@ The map section is determined by the points of interest.
        image: "images/logo_flutter_1080px_clr.png",
        primaryButton: CPTextButton(
          title: "Primary",
-         onPressed: () {
+         onPress: () {
            print("Primary button pressed");
          }
        ),
        secondaryButton: CPTextButton(
          title: "Secondary",
-         onPressed: () {
+         onPress: () {
            print("Secondary button pressed");
          }))
     ]);

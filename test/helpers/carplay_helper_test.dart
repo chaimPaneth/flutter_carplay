@@ -6,22 +6,18 @@ void main() {
   group('FlutterCarplayHelper', () {
     late FlutterCarplayHelper flutterCarplayHelper;
 
-    final cpListItem = CPListItem(text: '<CPListItem>');
+    final cpListItem=CPListItem(text: '<CPListItem>');
 
     final cpListTemplate = CPListTemplate(
-      title: '<CPListTemplate>',
-      sections: [
-        CPListSection(items: [cpListItem]),
-      ],
-      systemIcon: '<CarIcon>',
-    );
+        title: '<CPListTemplate>',
+        sections: [
+          CPListSection(items: [cpListItem])
+        ],
+        systemIcon: '<CarIcon>');
 
     final templates = [
-      CPTabBarTemplate(
-        title: '<CPTabBarTemplate>',
-        templates: [cpListTemplate],
-      ),
-      cpListTemplate,
+      CPTabBarTemplate(title: '<CPTabBarTemplate>', templates: [cpListTemplate]),
+      cpListTemplate
     ];
 
     setUp(() {
@@ -29,23 +25,18 @@ void main() {
     });
 
     test('find CPListItem from dynamic list item and element id', () {
-      final item = flutterCarplayHelper.findCPListItem(
-        templateHistory: templates,
-        elementId: cpListItem.uniqueId,
-      );
+      CPListItem? item = flutterCarplayHelper.findCPListItem(templates: templates, elementId: cpListItem.uniqueId);
 
       expect(item, cpListItem);
 
-      final nullableItem = flutterCarplayHelper.findCPListItem(
-        templateHistory: templates,
-        elementId: '',
-      );
+      CPListItem? nullableItem = flutterCarplayHelper.findCPListItem(
+          templates: templates, elementId: '');
 
       expect(nullableItem, null);
     });
 
     test('make FCP channel id', () {
-      final channelId = flutterCarplayHelper.makeFCPChannelId(event: '/event');
+      String channelId = flutterCarplayHelper.makeFCPChannelId(event: '/event');
 
       expect(channelId, 'com.oguzhnatly.flutter_carplay/event');
     });
