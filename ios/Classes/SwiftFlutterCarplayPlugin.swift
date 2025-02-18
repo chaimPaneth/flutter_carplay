@@ -243,6 +243,9 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
       objcRootTemplate.updateTemplates(newTemplates: newTemplates);   
       result(true)
       break
+    case FCPChannelTypes.isCarplayConnected:
+      result(SwiftFlutterCarplayPlugin.isCarplayConnected())
+      break
     default:
       result(false)
       break
@@ -292,5 +295,14 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
         }
       }
     }
+  }
+
+  private static func isCarplayConnected() -> Bool {
+    for screen in UIScreen.screens {
+        if screen.traitCollection.userInterfaceIdiom == .carPlay {
+            return true
+        }
+    }
+    return false
   }
 }

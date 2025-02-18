@@ -285,4 +285,12 @@ class FlutterCarplay {
     }
     return isCompleted;
   }
+
+  /// Returns isCarplayConnected status as a boolean.
+  static Future<bool> isCarplayConnected() async {
+    return await _carPlayController.reactToNativeModule(
+      FCPChannelTypes.isCarplayConnected,
+      null,
+    );
+  }
 }
