@@ -36,5 +36,7 @@ export "package:flutter_carplay/models/tabbar/tabbar_template.dart"
     show CPTabBarTemplate;
 export "package:flutter_carplay/models/button/text_button.dart"
     show CPTextButton;
+export "package:flutter_carplay/models/now_playing/now_playing_button.dart"
+    show CPNowPlayingButton;
 
 export 'package:flutter_carplay/carplay_worker.dart' show FlutterCarplay;

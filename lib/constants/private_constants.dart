@@ -19,4 +19,6 @@ enum FCPChannelTypes {
   popToRootTemplate,
   updateTabBarTemplates,
   isCarplayConnected,
+  setNowPlayingButtons,
+  onNowPlayingButtonPressed,
 }

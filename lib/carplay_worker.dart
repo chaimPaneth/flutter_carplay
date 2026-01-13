@@ -66,6 +66,10 @@ class FlutterCarplay {
         case FCPChannelTypes.onTextButtonPressed:
           _carPlayController.processFCPTextButtonPressed(event["data"]["elementId"]);
           break;
+        case FCPChannelTypes.onNowPlayingButtonPressed:
+          final int buttonIndex = event["data"]["buttonIndex"] as int;
+          _processNowPlayingButtonPressed(buttonIndex);
+          break;
         default:
           break;
       }
@@ -292,5 +296,26 @@ class FlutterCarplay {
       FCPChannelTypes.isCarplayConnected,
       null,
     );
+  }
+
+  /// Storage for Now Playing buttons callbacks
+  static List<CPNowPlayingButton> _nowPlayingButtons = [];
+
+  /// Sets the buttons displayed on the Now Playing screen.
+  static Future<bool> setNowPlayingButtons(List<CPNowPlayingButton> buttons) async {
+    _nowPlayingButtons = buttons;
+    bool isCompleted = await _carPlayController.reactToNativeModule(
+      FCPChannelTypes.setNowPlayingButtons,
+      buttons.map((b) => b.toJson()).toList(),
+    );
+    return isCompleted;
+  }
+
+  /// Process Now Playing button press event from native side
+  static void _processNowPlayingButtonPressed(int buttonIndex) {
+    if (buttonIndex >= 0 && buttonIndex < _nowPlayingButtons.length) {
+      final button = _nowPlayingButtons[buttonIndex];
+      button.onPress?.call();
+    }
   }
 }

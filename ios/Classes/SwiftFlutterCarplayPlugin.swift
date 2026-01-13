@@ -243,6 +243,27 @@ public class SwiftFlutterCarplayPlugin: NSObject, FlutterPlugin {
       objcRootTemplate.updateTemplates(newTemplates: newTemplates);   
       result(true)
       break
+    case FCPChannelTypes.setNowPlayingButtons:
+      guard let args = call.arguments as? [[String: Any]] else {
+        result(false)
+        return
+      }
+      var nowPlayingButtons: [CPNowPlayingButton] = []
+      for (index, buttonData) in args.enumerated() {
+        let systemImageName = buttonData["systemImageName"] as? String ?? "star"
+        let isEnabled = buttonData["isEnabled"] as? Bool ?? true
+        if let image = UIImage(systemName: systemImageName) {
+          let button = CPNowPlayingImageButton(image: image) { [weak self] _ in
+            FCPStreamHandlerPlugin.sendEvent(type: FCPChannelTypes.onNowPlayingButtonPressed,
+                                             data: ["buttonIndex": index])
+          }
+          button.isEnabled = isEnabled
+          nowPlayingButtons.append(button)
+        }
+      }
+      CPNowPlayingTemplate.shared.updateNowPlayingButtons(nowPlayingButtons)
+      result(true)
+      break
     case FCPChannelTypes.isCarplayConnected:
       result(SwiftFlutterCarplayPlugin.isCarplayConnected())
       break

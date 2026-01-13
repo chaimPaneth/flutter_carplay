@@ -32,6 +32,8 @@ enum FCPChannelTypes {
   static let popToRootTemplate = "popToRootTemplate"
   static let updateTabBarTemplates = "updateTabBarTemplates"
   static let isCarplayConnected = "isCarplayConnected"
+  static let setNowPlayingButtons = "setNowPlayingButtons"
+  static let onNowPlayingButtonPressed = "onNowPlayingButtonPressed"
 }
 
 enum FCPAlertActionTypes {
